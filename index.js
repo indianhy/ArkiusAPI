@@ -3,6 +3,8 @@ const path = require('path')
 const moment = require('moment')
 const { HOST } = require('./src/constants')
 const db = require('./src/database')
+var bodyParser = require('body-parser')
+const cors = require('cors');
 
 const PORT = process.env.PORT || 5000
 
@@ -10,6 +12,10 @@ const app = express()
   .set('port', PORT)
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
 
 // Static public files
 app.use(express.static(path.join(__dirname, 'public')))
@@ -36,7 +42,7 @@ app.get('/api/token/:token_id', function(req, res) {
 
 app.post('/api/token/:token_id', function(req, res) {
 
-  const tokenId = parseInt(req.params.token_id).toString()
+  const token_id = parseInt(req.params.token_id).toString()
   const token = {
                         "name": `Member ${token_id}`,
                         "description": `Arkius Member`,
@@ -149,7 +155,7 @@ app.post('/api/token/:token_id', function(req, res) {
                             },
                           ],
                     }
-  db[tokenId] = token;
+  db[token_id] = token;
 
   res.send(token);
 })
