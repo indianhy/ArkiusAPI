@@ -35,6 +35,7 @@ app.get('/api/token/:token_id', function(req, res) {
 })
 
 app.post('/api/token/:token_id', function(req, res) {
+
   const tokenId = parseInt(req.params.token_id).toString()
   const token = {
                         "name": `Member ${token_id}`,
@@ -47,62 +48,106 @@ app.post('/api/token/:token_id', function(req, res) {
                               "value": req.body.Identified
                             },
                             {
-                                      "trait_type": "Certifier",
-                                      "value": "false"
-                             },
-                             {
-
-                             "trait_type": "Entity",
-                             "value": "false"
-                             },
-
-                                             {
-                                                               "trait_type": "Champion",
-                                                               "value": "true"
-                                                             },
-
-
-
-                        ],
-                        "extra_attributes" : {
-                                    "MembershipToken": `Member ${i}`,
-                                    "Payment":
-                                      "Paid": 0, {
-                                      "Amount": 0
-                                    },
-                                    "Identified": 0,
-                                    "Certifier": 0,
-                                    "Entity": 0,
-                                    "Values": {
-                                      "Propose": 1,
-                                      "Modify": 0,
-                                      "Vote": 0,
-                                      "Comment_Review": 0
-                                    },
-                                    "Certifications": {
-                                      "Propose": 1,
-                                      "Modify": 0,
-                                      "Vote": 0,
-                                      "Comment_Review": 0
-                                    },
-                                    "ForumPosts": {
-                                      "Create": 0,
-                                      "Modify": 0,
-                                      "Reply": 0,
-                                      "Vote": 0
-                                    },
-                                    "Proposals_Petitions": 0,
-                                    "EntityCertificateToken": 0,
-                                    "Champion": 0,
-                                    "Budget": {
-                                      "Vote": 0,
-                                      "Modify": 0,
-                                      "Compensation": 0,
-                                      "Comment_review": 0,
-                                      "Propose": 0
-                                    }
-                                  },
-
+                              "trait_type": "Certifier",
+                                      "value": req.body.Certifier
+                            },
+                            {
+                              "trait_type": "Entity",
+                              "value": req.body.Entity
+                            },
+                            {
+                             "trait_type": "Champion",
+                              "value": req.body.Champion
+                            },
+                            {
+                              "trait_type": "MembershipToken",
+                              "value": `Member ${token_id}`
+                            },
+                            {
+                              "trait_type": "PaymentPaid",
+                              "value": req.body.PaymentPaid
+                            },
+                            {
+                              "trait_type":"PaymentAmount",
+                              "value": req.body.PaymentAmount
+                            },
+                            {
+                              "trait_type": "ValuesPropose",
+                              "value": req.body.ValuesPropose
+                            },
+                            {
+                              "trait_type": "ValuesModify",
+                              "value": req.body.ValuesModify
+                            },
+                            {
+                              "trait_type": "ValuesVote",
+                              "value": req.body.ValuesVote
+                            },
+                            {
+                              "trait_type": "ValuesCommentReview",
+                              "value": req.body.ValuesCommentReview
+                            },
+                            {
+                              "trait_type": "CertificationsPropose",
+                              "value": req.body.CertificationsPropose
+                            },
+                            {
+                              "trait_type": "CertificationsModify",
+                              "value": req.body.CertificationsModify
+                            },
+                            {
+                              "trait_type": "CertificationsVote",
+                              "value": req.body.CertificationsVote
+                            },
+                            {
+                              "trait_type": "CertificationsCommentReview",
+                              "value": req.body.CertificationsCommentReview
+                            },
+                            {
+                              "trait_type": "ForumPostsCreate",
+                              "value": req.body.ForumPostsCreate
+                            },
+                            {
+                              "trait_type": "ForumPostsModify",
+                              "value": req.body.ForumPostsModify
+                            },
+                            {
+                              "trait_type": "ForumPostsVote",
+                              "value": req.body.ForumPostsVote
+                            },
+                            {
+                              "trait_type": "ForumPostsReply",
+                              "value": req.body.ForumPostsReply
+                            },
+                            {
+                              "trait_type": "ProposalsPetitions",
+                              "value": req.body.ProposalsPetitions
+                            },
+                            {
+                              "trait_type": "EntityCertificateToken",
+                              "value": req.body.EntityCertificateToken
+                            },
+                            {
+                              "trait_type": "BudgetVote",
+                              "value": req.body.BudgetVote
+                            },
+                            {
+                              "trait_type": "BudgetModify",
+                              "value": req.body.BudgetModify
+                            },
+                            {
+                              "trait_type": "BudgetCompensation",
+                              "value": req.body.BudgetCompensation
+                            },
+                            {
+                              "trait_type": "BudgetCommentReview",
+                              "value": req.body.BudgetCommentReview
+                            },
+                            {
+                              "trait_type": "BudgetPropose",
+                              "value": req.body.BudgetPropose
+                            },
+                          ],
                     }
   db[tokenId] = token;
 
@@ -112,12 +157,16 @@ app.post('/api/token/:token_id', function(req, res) {
 app.post('/api/token/update/:token_id', function(req, res) {
     const tokenId = parseInt(req.params.token_id).toString()
     const token = db[tokenId]
-    var trttyp = req.body.trtrtyp;
-    var val = req.body.vale;
-    toke.attribute[0].val = val;
+    var trait_type = req.body.trait_type;
+    var value = req.body.value;
+    for (var i=0; i<token.attributes.length(); i++) {
+      if (token.attributes.[i].trait_type == trait_type) {
+        token.attributes[i].value = value;
+      }
+    }
     db[tokenId] = token;
 
-    res.send(db[tokemId]);
+    res.send(db[tokenId]);
   })
 
 app.listen(app.get('port'), function() {
