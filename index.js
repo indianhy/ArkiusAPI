@@ -34,6 +34,92 @@ app.get('/api/token/:token_id', function(req, res) {
   res.send(token);
 })
 
+app.post('/api/token/:token_id', function(req, res) {
+  const tokenId = parseInt(req.params.token_id).toString()
+  const token = {
+                        "name": `Member ${token_id}`,
+                        "description": `Arkius Member`,
+                        "image": `https://ipfs.io/ipfs/QmPey2czyZyiDMa6MJtoVRFKPHfUHrZawr1ZMoh9AhJU1y?filename=Screenshot_1.png`,
+                        "external_url": "",
+                        "attributes": [
+                            {
+                              "trait_type": "Identified",
+                              "value": req.body.Identified
+                            },
+                            {
+                                      "trait_type": "Certifier",
+                                      "value": "false"
+                             },
+                             {
+
+                             "trait_type": "Entity",
+                             "value": "false"
+                             },
+
+                                             {
+                                                               "trait_type": "Champion",
+                                                               "value": "true"
+                                                             },
+
+
+
+                        ],
+                        "extra_attributes" : {
+                                    "MembershipToken": `Member ${i}`,
+                                    "Payment":
+                                      "Paid": 0, {
+                                      "Amount": 0
+                                    },
+                                    "Identified": 0,
+                                    "Certifier": 0,
+                                    "Entity": 0,
+                                    "Values": {
+                                      "Propose": 1,
+                                      "Modify": 0,
+                                      "Vote": 0,
+                                      "Comment_Review": 0
+                                    },
+                                    "Certifications": {
+                                      "Propose": 1,
+                                      "Modify": 0,
+                                      "Vote": 0,
+                                      "Comment_Review": 0
+                                    },
+                                    "ForumPosts": {
+                                      "Create": 0,
+                                      "Modify": 0,
+                                      "Reply": 0,
+                                      "Vote": 0
+                                    },
+                                    "Proposals_Petitions": 0,
+                                    "EntityCertificateToken": 0,
+                                    "Champion": 0,
+                                    "Budget": {
+                                      "Vote": 0,
+                                      "Modify": 0,
+                                      "Compensation": 0,
+                                      "Comment_review": 0,
+                                      "Propose": 0
+                                    }
+                                  },
+
+                    }
+  db[tokenId] = token;
+
+  res.send(token);
+})
+
+app.post('/api/token/update/:token_id', function(req, res) {
+    const tokenId = parseInt(req.params.token_id).toString()
+    const token = db[tokenId]
+    var trttyp = req.body.trtrtyp;
+    var val = req.body.vale;
+    toke.attribute[0].val = val;
+    db[tokenId] = token;
+
+    res.send(db[tokemId]);
+  })
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 })
