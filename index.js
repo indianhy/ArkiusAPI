@@ -160,7 +160,7 @@ app.post('/api/token/update/:token_id', function(req, res) {
     var trait_type = req.body.trait_type;
     var value = req.body.value;
     for (var i=0; i<token.attributes.length(); i++) {
-      if (token.attributes.[i].trait_type == trait_type) {
+      if (token.attributes[i].trait_type == trait_type) {
         token.attributes[i].value = value;
       }
     }
