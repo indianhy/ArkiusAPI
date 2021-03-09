@@ -4,13 +4,9 @@
       return (pad + str).slice(-pad.length);
     }
 
-    var i = 0;
-
+    for(let i =1;i<100;i++){
       nft_obj[Object.keys(nft_obj).length + 1] = {
 
-        function() {
-          i++;
-        },
         "name": `Member ${i}`,
         "description": `Arkius Member`,
         "image": `https://ipfs.io/ipfs/QmPey2czyZyiDMa6MJtoVRFKPHfUHrZawr1ZMoh9AhJU1y?filename=Screenshot_1.png`,
@@ -122,4 +118,5 @@
           },
       ],
     }
+}
   module.exports = nft_obj;
