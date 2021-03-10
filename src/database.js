@@ -4,7 +4,9 @@
       return (pad + str).slice(-pad.length);
     }
 
-    for(let i =1;i<2;i++){
+    var tf = ["True","False","True","False","True","True","False"]
+
+    for(let i =1;i<100;i++){
       nft_obj[Object.keys(nft_obj).length + 1] = {
 
         "name": `Member ${i}`,
@@ -14,19 +16,19 @@
         "attributes": [
           {
             "trait_type": "Identified",
-            "value": "false"
+            "value": tf[i%7]
           },
           {
             "trait_type": "Certifier",
-            "value": "false"
+            "value": tf[(i+1)%7]
           },
           {
             "trait_type": "Entity",
-            "value": "false"
+            "value": tf[(i+2)%7]
           },
           {
            "trait_type": "Champion",
-            "value": "true"
+            "value": tf[(i+3)%7]
           },
           {
             "trait_type": "MembershipToken",
@@ -34,7 +36,7 @@
           },
           {
             "trait_type": "PaymentPaid",
-            "value": 0,
+            "value": tf[(i+1)%7],
           },
           {
             "trait_type":"PaymentAmount",
