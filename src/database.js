@@ -4,7 +4,7 @@
       return (pad + str).slice(-pad.length);
     }
 
-    for(let i =1;i<100;i++){
+    for(let i =1;i<2;i++){
       nft_obj[Object.keys(nft_obj).length + 1] = {
 
         "name": `Member ${i}`,
