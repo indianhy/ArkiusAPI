@@ -2,9 +2,19 @@ const express = require('express')
 const path = require('path')
 const moment = require('moment')
 const { HOST } = require('./src/constants')
-const db = require('./src/database')
-var bodyParser = require('body-parser')
+const db = {}
+const tokenABI = require('./src/database')
+const bodyParser = require('body-parser')
+const ipfsClient = require("ipfs-http-client")
+const ipfs = ipfsClient("http://localhost:5001")
 const cors = require('cors');
+const Web3 = require('web3');
+const web3 = new Web3(
+    new Web3.providers.WebsocketProvider("wss://rinkeby.infura.io/ws/v3/718f7ebaae36495d8f2178f215e2857e")
+   );
+
+
+const token = new web3.eth.Contract(tokenABI, "0xa0AC3CdF168bb278b1236088447e5533a82bbF87");
 
 const PORT = process.env.PORT || 5000
 
@@ -174,6 +184,10 @@ app.post('/api/token/update/:token_id', function(req, res) {
 
     res.send(db[tokenId]);
   })
+
+token.events.Transfer(function(err,eve){
+console.log(eve.returnValues)
+})
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
