@@ -45,10 +45,10 @@ app.get('/', function(req, res) {
 
 app.get('/api/token/:token_id', function(req, res) {
   const tokenId = parseInt(req.params.token_id).toString()
-  var token = db[tokenId]
+  var token = {};//db[tokenId]
    if(tokenId==10){
        token ={
-                           "name": `Member ${token_id}`,
+                           "name": `Member ${tokenId}`,
                            "description": `Arkius Member`,
                            "image": "",
                            "external_url": "",
@@ -57,7 +57,7 @@ app.get('/api/token/:token_id', function(req, res) {
       }
    else if(tokenId==11){
             token ={
-                                "name": `Member ${token_id}`,
+                                "name": `Member ${tokenId}`,
                                 "description": `Arkius Member`,
                                 "external_url": "",
                                 "attributes": []
