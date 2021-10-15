@@ -45,8 +45,24 @@ app.get('/', function(req, res) {
 
 app.get('/api/token/:token_id', function(req, res) {
   const tokenId = parseInt(req.params.token_id).toString()
-  const token = db[tokenId]
-
+  var token = db[tokenId]
+   if(tokenId===10){
+       token ={
+                           "name": `Member ${token_id}`,
+                           "description": `Arkius Member`,
+                           "image": "",
+                           "external_url": "",
+                           "attributes": []
+       }
+      }
+   else if(tokenId===11){
+            token ={
+                                "name": `Member ${token_id}`,
+                                "description": `Arkius Member`,
+                                "external_url": "",
+                                "attributes": []
+            }
+           }
   res.send(token);
 })
 
